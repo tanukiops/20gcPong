@@ -1,0 +1,89 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi3kyiyucqsjf"]
+
+[ext_resource type="Script" path="res://OptionsUI.gd" id="1_hlwhm"]
+[ext_resource type="Texture2D" uid="uid://4sg76hi07oem" path="res://Textures/logo.png" id="2_ks8wk"]
+[ext_resource type="AudioStream" uid="uid://o62em36g6arf" path="res://SoundEffects/hover.wav" id="3_q6ufq"]
+
+[node name="OptionsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hlwhm")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1150.0
+offset_bottom = 650.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="CenterContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_ks8wk")
+
+[node name="SettingsContainer" type="GridContainer" parent="CenterContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 21
+columns = 2
+
+[node name="DifficultyLabel" type="Label" parent="CenterContainer/VBoxContainer2/SettingsContainer"]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="Difficulty" type="OptionButton" parent="CenterContainer/VBoxContainer2/SettingsContainer"]
+layout_mode = 2
+item_count = 4
+selected = 1
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Impossible"
+popup/item_3/id = 3
+
+[node name="PaddleSpeedLabel" type="Label" parent="CenterContainer/VBoxContainer2/SettingsContainer"]
+layout_mode = 2
+text = "Paddle Speed"
+
+[node name="PaddleSpeedSlider" type="HSlider" parent="CenterContainer/VBoxContainer2/SettingsContainer"]
+layout_mode = 2
+min_value = 100.0
+max_value = 1000.0
+value = 100.0
+
+[node name="BallSpeedLabel" type="Label" parent="CenterContainer/VBoxContainer2/SettingsContainer"]
+layout_mode = 2
+text = "Ball Speed"
+
+[node name="BallSpeedSlider" type="HSlider" parent="CenterContainer/VBoxContainer2/SettingsContainer"]
+layout_mode = 2
+min_value = 100.0
+max_value = 1000.0
+value = 100.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer2"]
+layout_direction = 1
+layout_mode = 2
+
+[node name="Save" type="Button" parent="CenterContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="Back" type="Button" parent="CenterContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_q6ufq")
+
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer2/VBoxContainer/Save" to="." method="_on_save_focus_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer2/VBoxContainer/Back" to="." method="_on_back_focus_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/Back" to="." method="_on_back_pressed"]
