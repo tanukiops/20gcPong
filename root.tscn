@@ -1,0 +1,151 @@
+[gd_scene load_steps=17 format=3 uid="uid://c0vma7dbfbdik"]
+
+[ext_resource type="Texture2D" uid="uid://cbbrjbotxpbb6" path="res://Textures/dottedline.png" id="1_gqb33"]
+[ext_resource type="Script" path="res://PlayerPaddle.gd" id="2_o0w6a"]
+[ext_resource type="Script" path="res://Ball.gd" id="3_cf1oq"]
+[ext_resource type="Script" path="res://Player2Paddle.gd" id="4_het6h"]
+[ext_resource type="Script" path="res://EnemyGoal.gd" id="4_ldkhl"]
+[ext_resource type="Script" path="res://PlayerGoal.gd" id="5_wt4qq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ancxg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qio8b"]
+size = Vector2(1161, 18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6vbed"]
+size = Vector3(5.805, 0.125, -0.07)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgo6v"]
+size = Vector2(5.80499, 0.125)
+
+[sub_resource type="SphereMesh" id="SphereMesh_70rri"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_er8x6"]
+radius = 9.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxh6v"]
+size = Vector2(97, 678)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3wcl"]
+size = Vector2(131, 671)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i6ecd"]
+font_size = 56
+
+[sub_resource type="LabelSettings" id="LabelSettings_gw486"]
+font_size = 56
+
+[node name="Root" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+position = Vector2(-579, -305)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="TopWall"]
+position = Vector2(581, -10.125)
+scale = Vector2(1160, 17.75)
+mesh = SubResource("BoxMesh_ancxg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2(581.5, -10)
+shape = SubResource("RectangleShape2D_qio8b")
+
+[node name="BottomWall" type="StaticBody2D" parent="."]
+position = Vector2(-582, 325)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="BottomWall"]
+position = Vector2(581, -10.125)
+scale = Vector2(1160, 17.75)
+mesh = SubResource("BoxMesh_ancxg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
+position = Vector2(581.5, -10)
+shape = SubResource("RectangleShape2D_qio8b")
+
+[node name="DividerLine" type="Line2D" parent="."]
+z_index = -5
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0.09, -9.575)
+points = PackedVector2Array(-3, 317, -2, -320)
+texture = ExtResource("1_gqb33")
+texture_mode = 1
+
+[node name="PlayerPaddle" type="CharacterBody2D" parent="."]
+position = Vector2(-576, 0)
+motion_mode = 1
+platform_wall_layers = 1
+script = ExtResource("2_o0w6a")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="PlayerPaddle"]
+position = Vector2(12, 0)
+scale = Vector2(2.06718, 672)
+mesh = SubResource("BoxMesh_6vbed")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerPaddle"]
+position = Vector2(12, 0)
+scale = Vector2(2.06718, 672)
+shape = SubResource("RectangleShape2D_pgo6v")
+
+[node name="Ball" type="CharacterBody2D" parent="." groups=["Ball"]]
+position = Vector2(46, 0)
+motion_mode = 1
+safe_margin = 0.001
+script = ExtResource("3_cf1oq")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Ball"]
+position = Vector2(1.90735e-06, 1.08864)
+scale = Vector2(18.0204, 18.0204)
+mesh = SubResource("SphereMesh_70rri")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_er8x6")
+
+[node name="Player2Paddle" type="CharacterBody2D" parent="."]
+position = Vector2(551, -1)
+script = ExtResource("4_het6h")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Player2Paddle"]
+position = Vector2(12, 0)
+scale = Vector2(2.06718, 672)
+mesh = SubResource("BoxMesh_6vbed")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2Paddle"]
+position = Vector2(12, 0)
+scale = Vector2(2.06718, 672)
+shape = SubResource("RectangleShape2D_pgo6v")
+
+[node name="EnemyGoal" type="Area2D" parent="."]
+script = ExtResource("4_ldkhl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyGoal"]
+position = Vector2(-630, -1)
+shape = SubResource("RectangleShape2D_qxh6v")
+
+[node name="PlayerGoal" type="Area2D" parent="."]
+script = ExtResource("5_wt4qq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerGoal"]
+position = Vector2(647, 1)
+shape = SubResource("RectangleShape2D_c3wcl")
+
+[node name="Player2Score" type="Label" parent="."]
+offset_left = 44.0
+offset_top = -292.0
+offset_right = 225.0
+offset_bottom = -175.0
+text = "0"
+label_settings = SubResource("LabelSettings_i6ecd")
+
+[node name="Player1Score" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -295.0
+offset_right = -40.0
+offset_bottom = -218.0
+text = "0"
+label_settings = SubResource("LabelSettings_gw486")
+
+[connection signal="body_entered" from="EnemyGoal" to="EnemyGoal" method="_on_body_entered"]
+[connection signal="body_entered" from="PlayerGoal" to="PlayerGoal" method="_on_body_entered"]
